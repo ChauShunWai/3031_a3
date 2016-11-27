@@ -62,3 +62,14 @@ addNumToSmallList(IncompleteList, [H3|T3], NewList, SizeOfSmallerLists, Iteratio
 			append(IncompleteList, [H3], TempNewList),
 			NewIterationNum is IterationNum + 1,
 			addNumToSmallList(TempNewList, T3, NewList, SizeOfSmallerLists, NewIterationNum).
+
+% Problem [3]
+
+/* The database of adj facts */ 
+adj([a, [b,c,d]]).
+adj([b, [d,e]]).
+adj([c, []]).
+adj([e, [a]]). 
+adj([d, [b]]).
+
+
