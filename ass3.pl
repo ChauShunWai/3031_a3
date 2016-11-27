@@ -27,11 +27,15 @@ enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
 		findSmallerLists(OriginalList, SizeOfSmallerLists, [], ListOfSmallerLists, Listlen).
 
 
-findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, TempList, SizeOfSmallerLists).
+findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
+
+			LengthOfPrevTail =:= SizeOfSmallerLists-1,
+			append([], TempList, ListOfSmallerLists).
 
 
 findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
 			
+			LengthOfPrevTail>SizeOfSmallerLists-1,
 			[H1|T1] = OriginalList,
 			addNumToSmallList([], OriginalList, NewList, SizeOfSmallerLists, 0),
 			append(TempList, [NewList], TempList2),
@@ -39,7 +43,7 @@ findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists,
 			findSmallerLists(T1, SizeOfSmallerLists, TempList2, ListOfSmallerLists, LengthOfTail).
 
 
-addNumToSmallList(IncompleteList, [H2|T2], IncompleteList, SizeOfSmallerLists, SizeOfSmallerLists).
+addNumToSmallList(IncompleteList, _ , IncompleteList, SizeOfSmallerLists, SizeOfSmallerLists).
 
 
 addNumToSmallList(IncompleteList, [H3|T3], NewList, SizeOfSmallerLists, IterationNum) :-
