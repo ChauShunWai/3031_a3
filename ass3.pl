@@ -1,17 +1,14 @@
-dot([],[],X).
+dot([],[],X) :- false.
 
-dot(L1,L2,X) :- length(L1,Len1), length(L2,Len2),
+dot(L1,L2,X) :- length(L1,Len1), 
+				length(L2,Len2),
 				Len1 =:= Len2,
-				[H1|T1] = L1,
-				[H2|T2] = L2,
-				checkinit(X),
-				X1 is X + (H1*H2),
-				dot(T1,T2,X1).
+				\+ (Len1 =:= 0),
+				calcDot(L1,L2,0,X).
 
-checkinit(X) :- checknull(X) ; checknum(X).
+calcDot(L1,L2,X1,X) :-  [H1|T1] = L1,
+						[H2|T2] = L2,
+						X2 is X1 + (H1*H2),
+						calcDot(T1,T2,X2,X).
 
-checknull(X) :- var(X),
-				X=0,
-				checkinit(X).
-
-checknum(X) :- number(X).
+calcDot([],[],X1,X1).
