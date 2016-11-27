@@ -1,6 +1,6 @@
 % Problem [1]
 
-dot([],[],X) :- false.
+dot([],[], _) :- false.
 
 dot(L1,L2,X) :- 
 
@@ -39,7 +39,7 @@ enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
 % One Recursive Loop that shifts head of new smaller list by one
 
 
-findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
+findSmallerLists( _ , SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
 
 			LengthOfPrevTail =:= SizeOfSmallerLists-1,
 			append([], TempList, ListOfSmallerLists).
@@ -48,7 +48,7 @@ findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists,
 findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
 			
 			LengthOfPrevTail>SizeOfSmallerLists-1,
-			[H1|T1] = OriginalList,
+			[_|T1] = OriginalList,
 			addNumToSmallList([], OriginalList, NewList, SizeOfSmallerLists, 0),
 			append(TempList, [NewList], TempList2),
 			length(T1,LengthOfTail),
@@ -98,14 +98,14 @@ calculateVertices(List, List, NumOfV, NumOfV).
 checkPresence(TempList, VTest, TempListlen, Flag) :-
 
 		TempListlen >= 1,
-		[H|T] = TempList,
+		[_|T] = TempList,
 		\+ member(VTest, TempList),
 		length(T, TempListlen2),
 		checkPresence(T, VTest, TempListlen2, Flag).
 
-checkPresence([H|T], H, TempListlen, 0).
+checkPresence([H|_], H, _, 0).
 
-checkPresence(TempList, VTest, 0, Flag) :-
+checkPresence(_, _, 0, Flag) :-
 
 			Flag is 1.
 
