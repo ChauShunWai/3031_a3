@@ -85,8 +85,26 @@ calculateVertices(List, TempList, NumOfV, Index) :-
 
 		Index < NumOfV,
 		adj([V1|_]),
+		length(TempList, TempListlen),
+		checkPresence(TempList, V1, TempListlen, Flag),
+		Flag =:= 1,
 		append(TempList, [V1], TempList2),
+		!,
 		Index2 is Index + 1,
 		calculateVertices(List, TempList2, NumOfV, Index2).
 
 calculateVertices(List, List, NumOfV, NumOfV).
+
+checkPresence(TempList, VTest, TempListlen, Flag) :-
+
+		TempListlen >= 1,
+		[H|T] = TempList,
+		\+ member(VTest, TempList),
+		length(T, TempListlen2),
+		checkPresence(T, VTest, TempListlen2, Flag).
+
+checkPresence([H|T], H, TempListlen, 0).
+
+checkPresence(TempList, VTest, 0, Flag) :-
+
+			Flag is 1.
