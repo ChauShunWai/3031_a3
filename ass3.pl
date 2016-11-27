@@ -116,3 +116,9 @@ degree(V, D) :-
 		adj([V, AdjListOfV]),
 		length(AdjListOfV, D).
 
+% Problem 5
+
+edge(V1,V2) :-
+
+		adj([V1, AdjListofV1]),
+		member(V2, AdjListofV1).
