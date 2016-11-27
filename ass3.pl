@@ -108,3 +108,11 @@ checkPresence([H|T], H, TempListlen, 0).
 checkPresence(TempList, VTest, 0, Flag) :-
 
 			Flag is 1.
+
+% Problem 4
+
+degree(V, D) :-
+		
+		adj([V, AdjListOfV]),
+		length(AdjListOfV, D).
+
