@@ -17,14 +17,23 @@ calcDot([],[],TempX1,TempX1).
 
 % Problem [2]
 
-% OneLoop that shifts head of new smaller list by one
-% SecondLoop that adds {size} elements to the new smaller list
-
 enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
 		
 		length(OriginalList, Listlen),
 		SizeOfSmallerLists =< Listlen,
 		findSmallerLists(OriginalList, SizeOfSmallerLists, [], ListOfSmallerLists, Listlen).
+
+enum([],_,[]).
+
+enum(_,0,[]).
+
+enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
+
+		length(OriginalList, Listlen),
+		SizeOfSmallerLists > Listlen,
+		ListOfSmallerLists = [].
+
+% One Recursive Loop that shifts head of new smaller list by one
 
 
 findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists, LengthOfPrevTail) :-
@@ -42,6 +51,7 @@ findSmallerLists(OriginalList, SizeOfSmallerLists, TempList, ListOfSmallerLists,
 			length(T1,LengthOfTail),
 			findSmallerLists(T1, SizeOfSmallerLists, TempList2, ListOfSmallerLists, LengthOfTail).
 
+% Second Recursive Loop that adds {size} elements to the new smaller list
 
 addNumToSmallList(IncompleteList, _ , IncompleteList, SizeOfSmallerLists, SizeOfSmallerLists).
 
