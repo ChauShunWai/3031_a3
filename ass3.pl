@@ -24,11 +24,14 @@ enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
 		
 		length(OriginalList, Listlen),
 		SizeOfSmallerLists =< Listlen,
-		findSmallerLists(OriginalList, SizeOfSmallerLists, [], ListOfSmallerLists, Listlen).
+		findSmallerLists(OriginalList, SizeOfSmallerLists, [], ListOfSmallerLists, Listlen),
+		!.
 
-enum([],_,[]).
+enum([],_,[]) :-
+			!.
 
-enum(_,0,[]).
+enum(_,0,[]) :-
+			!.
 
 enum(OriginalList, SizeOfSmallerLists, ListOfSmallerLists) :-
 
@@ -113,12 +116,28 @@ checkPresence(_TempList, _VTest, 0, Flag) :-
 
 degree(V, D) :-
 		
+		var(V),
+		var(D),
 		adj([V, AdjListOfV]),
 		length(AdjListOfV, D).
+
+degree(V, D) :-
+		
+		adj([V, AdjListOfV]),
+		length(AdjListOfV, D),
+		!.
 
 % Problem 5
 
 edge(V1,V2) :-
-
+		
+		var(V1),
+		var(V2),
 		adj([V1, AdjListofV1]),
 		member(V2, AdjListofV1).
+
+edge(V1,V2) :-
+
+		adj([V1, AdjListofV1]),
+		member(V2, AdjListofV1),
+		!.
